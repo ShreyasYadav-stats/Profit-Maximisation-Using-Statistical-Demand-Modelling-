@@ -54,5 +54,68 @@ The analysis follows a simple decision framework.
 
 Rather than using average demand as the recommended inventory level, the analysis models the full uncertainty in demand. This is important because two days with the same average demand can still have very different levels of variability and inventory risk.
 
+## Modelling Demand Uncertainty
 
+Demand varies from week to week even when comparing the same weekday. Using average demand alone would ignore this uncertainty and could lead to unnecessary waste or missed sales.
 
+Demand was therefore modelled separately for each weekday. Poisson, geometric and negative binomial distributions were compared using graphical checks, Akaike Information Criterion (AIC) and chi squared goodness of fit tests.
+
+For Monday demand, the negative binomial distribution provided the strongest fit among the candidate models.
+
+| Distribution      |        AIC | Chi Squared GOF p-value |
+| ----------------- | ---------: | ----------------------: |
+| Poisson           |     473.75 |                 < 0.001 |
+| Geometric         |     563.21 |                 < 0.001 |
+| Negative Binomial | **434.97** |               **0.339** |
+
+The negative binomial distribution had the lowest AIC, while the goodness of fit test did not provide sufficient evidence to reject the fitted model.
+
+This process was repeated across weekdays, with the fitted demand distribution forming the basis of the inventory simulation.
+
+## Profit Optimisation
+
+Once demand uncertainty had been modelled, the next question was how much inventory the store should order.
+
+For each weekday, 100,000 possible demand scenarios were simulated from the fitted probability distribution. A range of candidate order quantities was then evaluated under each simulated demand scenario.
+
+Daily profit accounted for three components:
+
+**Sales revenue − Inventory purchase cost − Disposal cost of unsold inventory**
+
+If the store ordered too little, sales were limited by the available inventory. If the store ordered too much, the remaining inventory incurred a disposal cost.
+
+The expected profit for each order quantity was estimated across the simulated scenarios. The quantity producing the highest mean profit was selected as the recommended order quantity for that weekday.
+
+This approach incorporates demand uncertainty directly into the inventory decision rather than relying on a single average demand estimate.
+
+## Results and Recommendations
+
+The optimal order quantity varied substantially across weekdays, reflecting changes in both expected demand and demand uncertainty.
+
+| Day       | Optimal Order Quantity | Expected Profit (AUD) |
+| --------- | ---------------------: | --------------------: |
+| Monday    |                     64 |               $124.65 |
+| Tuesday   |                     62 |               $123.19 |
+| Wednesday |                     76 |               $151.08 |
+| Thursday  |                     82 |               $166.43 |
+| Friday    |                     98 |               $200.43 |
+| Saturday  |                    122 |               $248.52 |
+| Sunday    |                    114 |               $229.72 |
+
+The results show that a fixed daily ordering policy would not be appropriate for the Brighton store. Recommended inventory levels increase towards the end of the week as demand rises, with the largest order quantity of 122 units recommended for Saturday.
+
+Saturday also produced the highest expected daily profit at $248.52, followed by Sunday at $229.72. In contrast, lower demand early in the week resulted in more conservative inventory recommendations.
+
+The store should therefore adjust inventory orders by weekday rather than relying on a single average demand estimate. This reduces unnecessary excess inventory on quieter days while allowing higher stock levels when greater demand justifies the additional inventory cost.
+
+The same optimisation workflow can be applied to the Carlton, South Wharf and Dandenong stores using their individual demand patterns, selling prices, purchase costs and disposal costs.
+
+## Limitations and Future Work
+
+This analysis provides a starting point for modelling inventory decisions under uncertain demand, but several areas could be extended.
+
+Only three standard count distributions were considered when modelling demand. Although the negative binomial distribution provided the best fit among the candidate models, other probability distributions or non-parametric approaches may better capture complex demand patterns. This is especially relevant for negatively skewed demand observed on some weekdays.
+
+The analysis also relies mainly on probability modelling and does not explicitly forecast future demand trends. Time series methods could be incorporated to capture changing demand patterns, long-term trends and seasonal behaviour before applying the profit optimisation framework.
+
+Future extensions could include applying the analysis across all four stores, comparing how different cost structures affect inventory recommendations, and developing a Power BI dashboard to monitor demand patterns and recommended inventory levels across locations.
