@@ -8,6 +8,26 @@ Rather than relying on publicly available datasets, a custom simulation framewor
 
 This approach helps the analysis to be fully reproducible and provides flexibility to generate alternative scenarios for future modelling and optimisation studies.
 
+## Folder Structure
+
+The folder is organised into separate scripts to reflect different stages of the dataset generation workflow.
+
+```text
+Dataset Generation (R)
+│
+├── README.md
+├── Scripts
+│   ├── helper_functions.R
+│   ├── 01_generate_clean_data.R
+│   ├── 02_generate_dirty_data.R
+│   └── 03_export_datasets.R
+└── Datasets
+    ├── newsvendor_clean_4stores.xlsx
+    └── newsvendor_dirty_4stores.xlsx
+```
+
+The simulation workflow has been split into separate components to improve readability, maintainability and reproducibility. Helper functions contain reusable code, while individual scripts generate the clean datasets, introduce realistic data quality issues and export the final datasets.
+
 ## Generated Data
 
 The simulation was designed to produce realistic retail demand data for four stores with differing demand patterns, demand variability and inventory cost structures.
