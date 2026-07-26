@@ -14,6 +14,6 @@ duplicate records, inconsistent date formats, non-numeric demand entries and unr
 
 <img width="922" height="621" alt="image" src="https://github.com/user-attachments/assets/3768f9cd-ee7e-47c5-8852-fba5535a99c9" />
 
-The **`Dataset`** folder contains additional documentation describing the simulated datasets and the data quality issues that were intentionally introduced.
+The **`Datasets`** folder contains additional documentation describing the simulated datasets and the data quality issues that were intentionally introduced.
 
 The **`Dataset Generation (R)`** folder contains the complete R scripts used to generate both the clean and dirty datasets, making the simulation fully reproducible and allowing alternative scenarios to be created for future analyses.
