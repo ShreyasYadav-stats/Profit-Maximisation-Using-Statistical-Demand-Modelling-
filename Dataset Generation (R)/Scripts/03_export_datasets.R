@@ -10,5 +10,5 @@ dirty_datasets <- list(Brighton = brighton_dirty, Carlton = carlton_dirty, `Sout
 
 dir.create("../Generated Datasets", showWarnings = FALSE)
 
-export_workbook(clean_datasets, "../Generated Datasets/newsvendor_clean_4stores.xlsx")
-export_workbook(dirty_datasets, "../Generated Datasets/newsvendor_dirty_4stores.xlsx")
+export_workbook(clean_datasets, "../Datasets/newsvendor_clean_4stores.xlsx")
+export_workbook(dirty_datasets, "../Datasets/newsvendor_dirty_4stores.xlsx")
